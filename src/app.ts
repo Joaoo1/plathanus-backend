@@ -1,7 +1,9 @@
 import express from 'express';
 import 'express-async-errors';
 import cors from 'cors';
+import { ExceptionHandler } from './middlewares/ExceptionHandler';
 import { generalRateLimiter } from './middlewares/RateLimiter';
+import { router } from './router';
 
 const app = express();
 
@@ -11,8 +13,8 @@ app.use(express.json());
 
 app.use(generalRateLimiter);
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+app.use(router);
+
+app.use(ExceptionHandler);
 
 export { app };

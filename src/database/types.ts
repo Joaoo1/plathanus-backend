@@ -13,5 +13,4 @@ export interface UsersTable extends BaseTable {
   name: string;
   email: string;
   passwordHash: string;
-  resetPasswordToken: ColumnType<string | null>;
 }
