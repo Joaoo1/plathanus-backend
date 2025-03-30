@@ -1,0 +1,11 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    shm_size: 512mb
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: plathanus
+    ports:
+      - 5432:5432
