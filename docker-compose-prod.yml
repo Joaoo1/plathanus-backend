@@ -15,7 +15,7 @@ services:
 
   api:
     image: silvajoao/plathanus:latest
-    container_name: plathanus_apí
+    container_name: plathanus_api
     restart: always
     ports:
       - 3333:3333
