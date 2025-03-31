@@ -28,6 +28,19 @@ export class NewsRepository implements INewsRepository {
     return news;
   }
 
+  async findById(id: string): Promise<News | null> {
+    const news = await db
+      .selectFrom('news')
+      .where('id', '=', id)
+      .selectAll()
+      .limit(1)
+      .executeTakeFirst();
+
+    if (!news) return null;
+
+    return news;
+  }
+
   async findAll({ search }: FindAllNewsParams): Promise<News[]> {
     let query = db.selectFrom('news').selectAll();
 

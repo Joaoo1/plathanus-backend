@@ -9,6 +9,7 @@ export interface FindAllNewsParams {
 export interface INewsRepository {
   create(newsData: Insertable<NewsTable>): Promise<News>;
   findBySlug(slug: string): Promise<News | null>;
+  findById(id: string): Promise<News | null>;
   findAll(data: FindAllNewsParams): Promise<News[]>;
   update(id: string, data: Updateable<NewsTable>): Promise<News | null>;
   delete(id: string): Promise<boolean>;
