@@ -4,6 +4,8 @@ Esta é a API desenvolvida para o teste da Plathanus. A documentação detalhada
 
 **O app já consta com CI/CD configurado, portanto, qualquer alteração na branch main já irá refletir no app.**
 
+A branch main está protegida contra push direto, então, caso queira realizar alguma alteração, crie uma nova branch e abra um PR para a main. Não é necessário ninguém aprovar o PR antes de fazer o merge, mas é obrigatório que o workflow de testes e linting finalize sem erros. 
+
 ### Pré-requisitos para executar localmente
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
