@@ -1,6 +1,7 @@
 services:
   db:
     image: postgres
+    container_name: plathanus_db
     restart: always
     shm_size: 512mb
     ports:
@@ -14,6 +15,7 @@ services:
 
   api:
     image: silvajoao/plathanus:latest
+    container_name: plathanus_apí
     restart: always
     ports:
       - 3333:3333
