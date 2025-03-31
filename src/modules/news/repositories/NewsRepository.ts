@@ -1,8 +1,8 @@
-import type { Insertable, Updateable } from 'kysely';
+import { type Insertable, type Updateable, sql } from 'kysely';
 import { db } from '../../../database';
 import type { NewsTable } from '../../../database/types';
 import type { News } from '../entities/News';
-import type { INewsRepository } from './INewsRepository';
+import type { FindAllNewsParams, INewsRepository } from './INewsRepository';
 
 export class NewsRepository implements INewsRepository {
   async create(newsData: Insertable<NewsTable>): Promise<News> {
@@ -28,8 +28,27 @@ export class NewsRepository implements INewsRepository {
     return news;
   }
 
-  async findAll(): Promise<News[]> {
-    return db.selectFrom('news').selectAll().execute();
+  async findAll({ search }: FindAllNewsParams): Promise<News[]> {
+    let query = db.selectFrom('news').selectAll();
+
+    const mSearch = search?.trim();
+
+    if (mSearch) {
+      const searchTerm = `%${mSearch}%`;
+
+      // biome-ignore lint/suspicious/noExplicitAny: <didn't find any documentation that helped me to find the correct type>
+      const rawSql = sql<any>`unaccent(title) ILIKE unaccent(${searchTerm}) OR unaccent(content) ILIKE unaccent(${searchTerm})`;
+      query = query.where(rawSql);
+
+      query = query.orderBy(
+        sql`CASE WHEN title ILIKE ${searchTerm} THEN 0 ELSE 1 END`,
+        'asc'
+      );
+    } else {
+      query = query.orderBy('createdAt', 'desc');
+    }
+
+    return query.execute();
   }
 
   async update(id: string, data: Updateable<NewsTable>): Promise<News | null> {

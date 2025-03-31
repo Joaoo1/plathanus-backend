@@ -65,6 +65,17 @@
         "summary": "List all news",
         "description": "Retrieve a list of all news articles.",
         "tags": ["News"],
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Search text to filter news by title or content. This is optional. The news that contains the search text in the title will always appear first.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "List of news articles",
