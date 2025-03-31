@@ -1,7 +1,7 @@
-import { AppError } from '../../../../common/AppError';
 import type { UpdateNewsDTO } from '../../dtos/UpdateNewsDTO';
 import type { News } from '../../entities/News';
 import { DuplicatedNewsError } from '../../errors/DuplicatedNewsError';
+import { NotFoundNewsError } from '../../errors/NotFoundNewsError';
 import type { INewsRepository } from '../../repositories/INewsRepository';
 
 export class UpdateNewsUseCase {
@@ -21,7 +21,7 @@ export class UpdateNewsUseCase {
     const news = await this.newsRepository.update(id, { title, content, slug });
 
     if (!news) {
-      throw new AppError('Notícia não encontrada', 404);
+      throw new NotFoundNewsError();
     }
 
     return news;
