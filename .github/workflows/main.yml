@@ -27,6 +27,7 @@ jobs:
           uses: docker/build-push-action@v2
           with:
             context: .
+            file: Dockerfile-prod
             load: true
             tags: ${{ secrets.DOCKER_USERNAME }}/api-plathanus:scan
             cache-from: type=gha
