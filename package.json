@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "tsx watch --env-file .env src/server/index.ts",
-    "db:migrate:dev": "tsx --env-file .env src/database/migrator.ts",
+    "db:migrate": "tsx --env-file .env src/database/migrator.ts",
     "db:migrate:test": "tsx --env-file .env.test src/database/migrator.ts",
     "build": "tsc",
     "start": "node --env-file .env dist/server/index.js",
