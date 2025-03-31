@@ -2,6 +2,7 @@ import { type Insertable, type Updateable, sql } from 'kysely';
 import { db } from '../../../database';
 import type { NewsTable } from '../../../database/types';
 import type { News } from '../entities/News';
+import type { NewsWithAuthor } from '../entities/NewsWithAuthor';
 import type { FindAllNewsParams, INewsRepository } from './INewsRepository';
 
 export class NewsRepository implements INewsRepository {
@@ -41,8 +42,19 @@ export class NewsRepository implements INewsRepository {
     return news;
   }
 
-  async findAll({ search }: FindAllNewsParams): Promise<News[]> {
-    let query = db.selectFrom('news').selectAll();
+  async findAll({ search }: FindAllNewsParams): Promise<NewsWithAuthor[]> {
+    let query = db
+      .selectFrom('news')
+      .innerJoin('users', 'users.id', 'news.authorId')
+      .select([
+        'news.id',
+        'news.title',
+        'news.slug',
+        'news.content',
+        'news.createdAt',
+        'authorId',
+        'users.name as authorName',
+      ]);
 
     const mSearch = search?.trim();
 
