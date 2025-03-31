@@ -1,0 +1,228 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Plathanus Backend API",
+    "version": "1.0.0",
+    "description": "API documentation for the Plathanus Backend."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3333",
+      "description": "Local server"
+    }
+  ],
+  "paths": {
+    "/api/auth/sign-in": {
+      "post": {
+        "summary": "Authenticate a user",
+        "description": "Authenticate a user and return a JWT token.",
+        "tags": ["Auth"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string", "example": "test@test.com" },
+                  "password": { "type": "string", "example": "test" }
+                },
+                "required": ["email", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authentication successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": { "type": "string" },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "name": { "type": "string" },
+                        "email": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      }
+    },
+    "/api/news": {
+      "get": {
+        "summary": "List all news",
+        "description": "Retrieve a list of all news articles.",
+        "tags": ["News"],
+        "responses": {
+          "200": {
+            "description": "List of news articles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "string" },
+                      "title": { "type": "string" },
+                      "slug": { "type": "string" },
+                      "content": { "type": "string" },
+                      "authorId": { "type": "string" },
+                      "createdAt": { "type": "string", "format": "date-time" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a news article",
+        "description": "Create a new news article.",
+        "tags": ["News"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": { "type": "string", "example": "Breaking News" },
+                  "content": { "type": "string", "example": "News content here..." }
+                },
+                "required": ["title", "content"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "News article created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "title": { "type": "string" },
+                    "slug": { "type": "string" },
+                    "content": { "type": "string" },
+                    "authorId": { "type": "string" },
+                    "createdAt": { "type": "string", "format": "date-time" }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "News article with the same slug already exists"
+          }
+        }
+      }
+    },
+    "/api/news/{id}": {
+      "put": {
+        "summary": "Update a news article",
+        "description": "Update the title and content of a news article.",
+        "tags": ["News"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "ID of the news article to update"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": { "type": "string", "example": "Updated Title" },
+                  "content": { "type": "string", "example": "Updated content here..." }
+                },
+                "required": ["title", "content"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "News article updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "title": { "type": "string" },
+                    "slug": { "type": "string" },
+                    "content": { "type": "string" },
+                    "authorId": { "type": "string" },
+                    "createdAt": { "type": "string", "format": "date-time" }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "News article not found"
+          },
+          "409": {
+            "description": "News article with the same slug already exists"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a news article",
+        "description": "Delete a news article by its ID.",
+        "tags": ["News"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "ID of the news article to delete"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "News article deleted successfully"
+          },
+          "404": {
+            "description": "News article not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
