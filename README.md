@@ -1,4 +1,4 @@
-# API Plathanus
+# API Plathanus - Portal de notícias
 
 Esta é a API desenvolvida para o teste da Plathanus. A documentação detalhadas dos endpoints da API se encontra em [API Plathanus](https://api-plathanus.utamo.com.br/docs/).
 
