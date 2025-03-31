@@ -9,6 +9,8 @@ services:
       - db_data:/var/lib/postgresql/data
     env_file:
       - .env
+    networks:
+      - plathanus_network
 
   api:
     image: silvajoao/plathanus:latest
@@ -19,6 +21,12 @@ services:
       - db
     env_file:
       - .env
+    networks:
+      - plathanus_network
 
 volumes:
   db_data:
+
+networks:
+  plathanus_network:
+    driver: bridge
