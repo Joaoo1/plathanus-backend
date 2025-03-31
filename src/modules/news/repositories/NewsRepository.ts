@@ -1,4 +1,4 @@
-import type { Insertable } from 'kysely';
+import type { Insertable, Updateable } from 'kysely';
 import { db } from '../../../database';
 import type { NewsTable } from '../../../database/types';
 import type { News } from '../entities/News';
@@ -30,5 +30,16 @@ export class NewsRepository implements INewsRepository {
 
   async findAll(): Promise<News[]> {
     return db.selectFrom('news').selectAll().execute();
+  }
+
+  async update(id: string, data: Updateable<NewsTable>): Promise<News | null> {
+    const [updatedNews] = await db
+      .updateTable('news')
+      .set(data)
+      .where('id', '=', id)
+      .returningAll()
+      .execute();
+
+    return updatedNews || null;
   }
 }

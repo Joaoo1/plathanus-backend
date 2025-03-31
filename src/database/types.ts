@@ -20,5 +20,5 @@ export interface NewsTable extends BaseTable {
   title: string;
   content: string;
   authorId: string;
-  slug: ColumnType<string, string, never>;
+  slug: ColumnType<string, string, string>;
 }

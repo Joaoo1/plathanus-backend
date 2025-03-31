@@ -1,28 +1,28 @@
-import type { CreateNewsDTO } from '../../dtos/CreateNewsDTO';
+import { AppError } from '../../../../common/AppError';
+import type { UpdateNewsDTO } from '../../dtos/UpdateNewsDTO';
 import type { News } from '../../entities/News';
 import { DuplicatedNewsError } from '../../errors/DuplicatedNewsError';
 import type { INewsRepository } from '../../repositories/INewsRepository';
 
-export class CreateNewsUseCase {
+export class UpdateNewsUseCase {
   private readonly SlugLength = 100;
 
   constructor(private readonly newsRepository: INewsRepository) {}
 
-  async execute(data: CreateNewsDTO): Promise<News> {
-    const slug = this.generateSlug(data.title);
+  async execute({ id, title, content }: UpdateNewsDTO): Promise<News> {
+    const slug = this.generateSlug(title);
 
-    const alreadyExists = await this.newsRepository.findBySlug(slug);
+    const existingNews = await this.newsRepository.findBySlug(slug);
 
-    if (alreadyExists) {
+    if (existingNews && existingNews.id !== id) {
       throw new DuplicatedNewsError();
     }
 
-    const news = await this.newsRepository.create({
-      authorId: data.authorId,
-      content: data.content,
-      slug,
-      title: data.title,
-    });
+    const news = await this.newsRepository.update(id, { title, content, slug });
+
+    if (!news) {
+      throw new AppError('Notícia não encontrada', 404);
+    }
 
     return news;
   }
