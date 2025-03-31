@@ -1,5 +1,6 @@
 import type { ErrorRequestHandler } from 'express';
 import { AppError } from '../../common/AppError';
+import { env } from '../../env';
 
 export const ExceptionHandler: ErrorRequestHandler = (
   error,
@@ -7,6 +8,10 @@ export const ExceptionHandler: ErrorRequestHandler = (
   res,
   next
 ) => {
+  if (env.NODE_ENV === 'development') {
+    console.error(error);
+  }
+
   if (error instanceof AppError) {
     return res.status(error.statusCode).send({ message: error.message });
   }
