@@ -10,7 +10,7 @@
     "db:migrate": "tsx --env-file .env src/database/migrator.ts",
     "db:migrate:test": "tsx --env-file .env.test src/database/migrator.ts",
     "build": "tsc",
-    "start": "node --env-file .env dist/server/index.js",
+    "start": "node --env-file .env dist/src/server/index.js",
     "pretest": "npm run db:migrate:test",
     "test": "dotenv -e .env.test -- jest"
   },
