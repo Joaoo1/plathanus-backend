@@ -68,9 +68,10 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            docker pull silvajoao/plathanus:latest
             cd /root/www/plathanus-backend
-
+            docker pull silvajoao/plathanus:latest
+            git pull
+            
             cat <<EOF > .env
             PORT=${{ secrets.PORT }}
             NODE_ENV=production
