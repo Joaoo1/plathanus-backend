@@ -10,6 +10,8 @@ COPY . .
 
 RUN npm run build
 
+RUN npm run db:migrate
+
 FROM gcr.io/distroless/nodejs22-debian12 AS deploy
 
 USER 1000
