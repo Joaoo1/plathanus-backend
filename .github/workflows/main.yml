@@ -70,7 +70,7 @@ jobs:
           script: |
             cd /root/www/plathanus-backend
             docker pull silvajoao/plathanus:latest
-            git pull
+            git reset --hard && git checkout main && git pull origin main
 
             cat <<EOF > .env
             PORT=${{ secrets.PORT }}
