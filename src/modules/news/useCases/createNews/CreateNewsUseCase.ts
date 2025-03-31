@@ -2,14 +2,16 @@ import type { CreateNewsDTO } from '../../dtos/CreateNewsDTO';
 import type { News } from '../../entities/News';
 import { DuplicatedNewsError } from '../../errors/DuplicatedNewsError';
 import type { INewsRepository } from '../../repositories/INewsRepository';
+import type { ISlugify } from '../../utils/Slugify/ISlugify';
 
 export class CreateNewsUseCase {
-  private readonly SlugLength = 100;
-
-  constructor(private readonly newsRepository: INewsRepository) {}
+  constructor(
+    private readonly newsRepository: INewsRepository,
+    private readonly slugify: ISlugify
+  ) {}
 
   async execute(data: CreateNewsDTO): Promise<News> {
-    const slug = this.generateSlug(data.title);
+    const slug = this.slugify.createSlug(data.title);
 
     const alreadyExists = await this.newsRepository.findBySlug(slug);
 
@@ -25,26 +27,5 @@ export class CreateNewsUseCase {
     });
 
     return news;
-  }
-
-  private generateSlug(title: string): string {
-    const titleWithoutAccents = title
-      .normalize('NFD')
-      .replace(/\u0300-\u036f/g, '')
-      .toLowerCase()
-      .trim();
-
-    const titleWithoutSpecialChars = titleWithoutAccents.replace(
-      /[^a-z0-9\s-]/g,
-      ''
-    );
-
-    const titleWithoutSpaces = titleWithoutSpecialChars.replace(/\s+/g, '-');
-
-    const titleWithoutMultipleDashes = titleWithoutSpaces.replace(/-+/g, '-');
-
-    const slug = titleWithoutMultipleDashes.slice(0, this.SlugLength);
-
-    return slug;
   }
 }

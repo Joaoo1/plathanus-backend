@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+import { generateFakeUser } from '../../../../common/factories/generateFakeUser';
 import { Bcrypt } from '../../../../common/libs/Hasher';
 import { Jwt } from '../../../../common/libs/Jwt';
 import { env } from '../../../../env';
@@ -8,21 +9,11 @@ import { AuthenticateUseCase } from './AuthenticateUseCase';
 
 const makeSut = async () => {
   const password = faker.string.alphanumeric(12);
-  const hasher = new Bcrypt();
-  const passwordHash = await hasher.hash(password);
-
-  const user = {
-    email: faker.internet.email(),
-    name: faker.person.fullName(),
-    passwordHash,
-  };
-
-  const usersRepository = new UsersRepository();
-  await usersRepository.create(user);
+  const user = await generateFakeUser(password);
 
   const sut = new AuthenticateUseCase(
-    usersRepository,
-    hasher,
+    new UsersRepository(),
+    new Bcrypt(),
     new Jwt(env.JWT_SECRET)
   );
 
