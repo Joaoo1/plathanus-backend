@@ -1,17 +1,16 @@
 {
-	"files": {
-	  "ignore": ["*.json", "coverage/*", "dist/*"]
-	},
-	"formatter": {
-	  "indentWidth": 2,
-	  "indentStyle": "space"
-	},
-	"javascript": {
-	  "formatter": {
-		"quoteStyle": "single",
-		"arrowParentheses": "asNeeded",
-		"trailingCommas": "es5"
-	  }
-	}
+  "files": {
+    "ignore": ["*.json", "coverage/*", "dist/*"]
+  },
+  "formatter": {
+    "indentWidth": 2,
+    "indentStyle": "space"
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "arrowParentheses": "asNeeded",
+      "trailingCommas": "es5"
+    }
   }
-  
+}
