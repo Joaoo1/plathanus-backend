@@ -8,7 +8,7 @@ export const ExceptionHandler: ErrorRequestHandler = (
   res,
   next
 ) => {
-  if (env.NODE_ENV === 'development') {
+  if (env.NODE_ENV === 'development' || env.NODE_ENV === 'production') {
     console.error(error);
   }
 
