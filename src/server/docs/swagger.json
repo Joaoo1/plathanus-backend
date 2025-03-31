@@ -7,8 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3333",
-      "description": "Local server"
+      "url": "https://api-plathanus.utamo.com.br"
     }
   ],
   "paths": {
