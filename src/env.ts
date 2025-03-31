@@ -7,7 +7,7 @@ const envSchema = z.object({
   DB_PORT: z.string().regex(/^\d+$/, { message: 'DB_PORT must be a number' }),
   DB_HOST: z.string(),
   DB_NAME: z.string(),
-  NODE_ENV: z.enum(['development', 'production']),
+  NODE_ENV: z.enum(['development', 'production', 'test']),
   JWT_SECRET: z.string(),
 });
 

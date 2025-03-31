@@ -7,9 +7,12 @@
   },
   "scripts": {
     "dev": "tsx watch --env-file .env src/server/index.ts",
-    "db:migrate": "tsx --env-file .env src/database/migrator.ts",
+    "db:migrate:dev": "tsx --env-file .env src/database/migrator.ts",
+    "db:migrate:test": "tsx --env-file .env.test src/database/migrator.ts",
     "build": "tsc",
-    "start": "node --env-file .env dist/server/index.js"
+    "start": "node --env-file .env dist/server/index.js",
+    "pretest": "npm run db:migrate:test",
+    "test": "dotenv -e .env.test -- jest"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -29,12 +32,18 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "@faker-js/faker": "^9.6.0",
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/pg": "^8.11.11",
     "@types/swagger-ui-express": "^4.1.8",
+    "dotenv-cli": "^8.0.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.3.0",
+    "ts-node": "^10.9.2",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2"
   }
