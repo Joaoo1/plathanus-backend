@@ -1,10 +1,10 @@
 import type { NextFunction, Request, Response } from 'express';
 
-import { AppError } from '../common/AppError';
-import { HttpStatusCode } from '../common/HttpStatusCode';
-import { db } from '../database';
-import { env } from '../env';
-import { Jwt } from '../libs/core/Jwt';
+import { db } from '../../database';
+import { env } from '../../env';
+import { AppError } from '../AppError';
+import { HttpStatusCode } from '../HttpStatusCode';
+import { Jwt } from '../libs/Jwt';
 
 const jwt = new Jwt(env.JWT_SECRET);
 

@@ -1,5 +1,5 @@
-import type { IHasher } from '../../../../libs/core/Hasher/IHasher';
-import type { IJwt } from '../../../../libs/core/Jwt/IJwt';
+import type { IHasher } from '../../../../common/libs/Hasher/IHasher';
+import type { IJwt } from '../../../../common/libs/Jwt/IJwt';
 import type { IAuthenticateUserDTO } from '../../dtos/IAuthenticateUserDTO';
 import { InvalidCredentialsError } from '../../errors/InvalidCredentialsError';
 import type { IUsersRepository } from '../../repositories/IUsersRepository';

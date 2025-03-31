@@ -27,4 +27,8 @@ export class NewsRepository implements INewsRepository {
 
     return news;
   }
+
+  async findAll(): Promise<News[]> {
+    return db.selectFrom('news').selectAll().execute();
+  }
 }

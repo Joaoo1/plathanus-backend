@@ -1,7 +1,7 @@
 import type { Response } from 'express';
+import { Bcrypt } from '../../../../common/libs/Hasher';
+import { Jwt } from '../../../../common/libs/Jwt';
 import { env } from '../../../../env';
-import { Bcrypt } from '../../../../libs/core/Hasher';
-import { Jwt } from '../../../../libs/core/Jwt';
 import { UsersRepository } from '../../repositories/UsersRepository';
 import { AuthenticateUseCase } from './AuthenticateUseCase';
 import type { AuthenticateRequest } from './AuthenticateValidator';
