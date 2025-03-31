@@ -7,4 +7,5 @@ export interface INewsRepository {
   findBySlug(slug: string): Promise<News | null>;
   findAll(): Promise<News[]>;
   update(id: string, data: Updateable<NewsTable>): Promise<News | null>;
+  delete(id: string): Promise<boolean>;
 }

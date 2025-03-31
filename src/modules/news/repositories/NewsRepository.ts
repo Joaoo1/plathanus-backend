@@ -40,6 +40,17 @@ export class NewsRepository implements INewsRepository {
       .returningAll()
       .execute();
 
-    return updatedNews || null;
+    if (!updatedNews) return null;
+
+    return updatedNews;
+  }
+
+  async delete(id: string): Promise<boolean> {
+    const [{ numDeletedRows }] = await db
+      .deleteFrom('news')
+      .where('id', '=', id)
+      .execute();
+
+    return Number(numDeletedRows) > 0;
   }
 }
