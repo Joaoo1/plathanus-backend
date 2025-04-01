@@ -55,7 +55,11 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 # Instale as dependências
 $ npm install
 
-# Crie um arquivo .env com base no .env.test
+# Crie um arquivo .env com base no .env.test. As variáveis DB_PORT devem ser diferentes em cada arquivo e devem ser as mesmas que estão na porta exposta dos containers no arquivo docker-compose.yml. Onde encontrar a porta exposta:
+
+    ports:
+        - ${PORTA_EXPOSTA}:5432
+
 
 # Suba os containers dos bancos de dados no docker 
 docker compose up -d
