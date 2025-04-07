@@ -6,9 +6,9 @@
     "node": ">=20.16.0"
   },
   "scripts": {
-    "dev": "tsx watch --env-file .env src/server/index.ts",
-    "db:migrate": "tsx --env-file .env src/database/migrator.ts",
-    "db:migrate:test": "tsx --env-file .env.test src/database/migrator.ts",
+    "dev": "ts-node-dev --poll --respawn --transpile-only --ignore-watch node_modules --env-file .env src/server/index.ts",
+    "db:migrate": "ts-node-dev --env-file .env src/database/migrator.ts",
+    "db:migrate:test": "ts-node-dev --env-file .env.test src/database/migrator.ts",
     "build": "tsc",
     "start": "node --env-file .env dist/src/server/index.js",
     "pretest": "npm run db:migrate:test",
@@ -44,7 +44,7 @@
     "jest": "^29.7.0",
     "ts-jest": "^29.3.0",
     "ts-node": "^10.9.2",
-    "tsx": "^4.19.3",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.2"
   }
 }
