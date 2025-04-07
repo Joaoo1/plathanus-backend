@@ -19,5 +19,23 @@ services:
     ports:
       - 5433:5432
 
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - PORT
+    env_file:
+      - .env
+    container_name: plathanus_api_dev
+    restart: always
+    ports:
+      - 3333:3333
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+      - /app/node_modules 
+
 volumes:
   db_data:

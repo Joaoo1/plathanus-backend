@@ -43,27 +43,21 @@ Vou deixar aqui um pouco por trás do meu pensamento ao escolher algumas tecnolo
 ## 🔧 Executando o projeto
 ### Pré-requisitos para executar localmente
 
-Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
-
-**[Node.js](https://nodejs.org)**
+Antes de começar, você vai precisar ter instalado em sua máquina a seguinte ferramenta:
 
 **[Docker](https://www.docker.com)**
 
 ### Executando o projeto localmente
 
 ```bash
-# Instale as dependências
-$ npm install
-
-# Crie um arquivo .env com base no .env.test. As variáveis DB_PORT devem ser diferentes em cada arquivo e devem ser as mesmas que estão na porta exposta dos containers no arquivo docker-compose.yml. Onde encontrar a porta exposta:
+# Crie um arquivo .env com base no .env.test. 
+# As variáveis DB_PORT precisam ser diferentes em cada arquivo env e devem ser as mesmas que estão na porta exposta dos containers no arquivo docker-compose.yml. 
+# Onde encontrar a porta exposta:
 
     ports:
         - ${PORTA_EXPOSTA}:5432
 
 
-# Suba os containers dos bancos de dados no docker 
+# Suba os containers no docker 
 docker compose up -d
-
-# Execute a aplicação em modo desenvolvimento
-$ npm run dev
 ```
